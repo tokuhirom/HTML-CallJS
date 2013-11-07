@@ -57,6 +57,24 @@ HTML::CallJS - Pass server side data to JavaScript safety.
 
 Pass server side data to JavaScript safety.
 
+=head1 HTML::CallJS with Text::Xslate
+
+    use Text::Xslate;
+    use HTML::CallJS;
+
+    my $tx = Text::Xslate->new(
+        html_builder_module => [
+            'HTML::CallJS' => [qw(call_js)]
+        ]
+    );
+    print $tx->render_string(
+        '<: call_js("foo", {x=>$x}) :>', { x => 5963 },
+    ), "\n";
+
+    # => <script class="call_js" type="text/javascript">foo({"x":5963})</script>
+
+You can use HTML::CallJS with L<Text::Xslate>.
+
 =head1 LICENSE
 
 Copyright (C) tokuhirom.
